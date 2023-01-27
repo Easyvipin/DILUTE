@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .card {
+    @apply shadow-md rounded border p-2 hover:shadow-lg m-6;
+  }
+}
