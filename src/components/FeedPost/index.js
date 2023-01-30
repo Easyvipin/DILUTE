@@ -1,9 +1,17 @@
+import {
+  FaRegComment,
+  FaRegThumbsUp,
+  FaRegBookmark,
+  FaRegThumbsDown,
+  FaShare,
+  FaRegHeart,
+} from "react-icons/fa";
 import Image from "next/image";
 import profile from "../../assets/images/profile.webp";
 
 const FeedPost = () => {
   return (
-    <div className="card w-80 h-80 p-7">
+    <div className="card w-auto h-auto p-7">
       <div className="card-header">
         <div className="profile-section flex  justify-start items-center">
           <div className="avatar  border rounded-full overflow-hidden border-blue-100 w-12 h-12 shadow-sm relative">
@@ -21,6 +29,17 @@ const FeedPost = () => {
             Repellendus qui beatae at veritatis ullam excepturi perspiciatis
             voluptate sit, aperiam vitae rem?
           </p>
+        </div>
+        <div className="reaction-stats font-bold text-sm mt-3">1k Likes</div>
+        <div className="reactions flex mt-3 justify-between">
+          <div className="left-reactions flex w-28 justify-start gap-3">
+            <FaRegHeart />
+            <FaRegComment />
+            <FaShare />
+          </div>
+          <div className="right-reactions flex w-28 justify-end gap-3">
+            <FaRegBookmark />
+          </div>
         </div>
       </div>
     </div>
