@@ -5,7 +5,7 @@ import { topics } from "@src/utils/mockData";
 
 const feed = () => {
   return (
-    <div className="w-3/4">
+    <div className="sm:w-3/4">
       <div>
         <ScrollTopics topics={topics} />
         <div className="">

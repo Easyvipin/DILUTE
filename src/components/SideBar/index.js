@@ -1,34 +1,45 @@
 import Link from "next/link";
 import { FaUser, FaCog, FaBell, FaUserFriends } from "react-icons/fa";
+import { ImFeed } from "react-icons/im";
 
 const SideBar = () => {
   return (
-    <div className="flex flex-col left-0 h-3/4 w-1/4 justify-center items-center px-8">
-      <div className="flex flex-col  gap-10">
+    <div className="flex flex-row bottom-0 sm:flex-col sm:left-0 sm:h-3/4 sm:w-1/4 sm:justify-center sm:items-center py-4 sm:py-0 sm:px-8">
+      <div className="flex justify-evenly sm:justify-center basis-full sm:flex-col  sm:gap-10">
         <Link
           className="flex justify-start gap-1 items-center text-xl font-medium"
           href="/profile"
         >
           <FaUser />
-          <span>Profile</span>
+          <span className="hidden sm:block">Profile</span>
         </Link>
         <Link
           className="flex justify-start gap-1 items-center text-xl font-medium"
           href="/settings"
         >
-          <FaCog /> Settings
+          <FaCog />
+          <span className="hidden sm:block">Settings</span>
+        </Link>
+        <Link
+          className="sm:hidden flex justify-start gap-1 items-center text-xl font-medium"
+          href="/settings"
+        >
+          <ImFeed />
+          <span className="hidden sm:block">Settings</span>
         </Link>
         <Link
           className="flex justify-start gap-1 items-center text-xl font-medium"
           href="/Notification"
         >
-          <FaBell /> Notifications
+          <FaBell />
+          <span className="hidden sm:block">Notifications</span>
         </Link>
         <Link
           className="flex justify-start gap-1 items-center text-xl font-medium"
           href="/Notification"
         >
-          <FaUserFriends /> Friends
+          <FaUserFriends />
+          <span className="hidden sm:block">Friends</span>
         </Link>
       </div>
     </div>

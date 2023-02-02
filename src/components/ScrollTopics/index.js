@@ -2,7 +2,7 @@ const ScrollTopics = ({ topics }) => {
   const renderTopics = () =>
     topics.map((topic) => {
       return (
-        <button className="btn  bg-black text-white border rounded-3xl">
+        <button className="px-3 py-1 text-sm sm:text-base sm:px-6 bg-black text-white border rounded-3xl">
           {topic.name}
         </button>
       );

@@ -8,21 +8,20 @@ import {
 } from "react-icons/fa";
 import Image from "next/image";
 import profile from "../../assets/images/profile.webp";
+import ProfileAvatar from "../ProfileAvatar";
+import { AVATAR_RANDOM_URL } from "@src/utils/constants";
+import Reactions from "../Reactions";
 
 const FeedPost = () => {
   return (
-    <div className="card w-auto h-auto p-7">
+    <div className="card p-4 h-68 w-auto sm:h-auto sm:p-7">
       <div className="card-header">
-        <div className="profile-section flex  justify-start items-center">
-          <div className="avatar  border rounded-full overflow-hidden border-blue-100 w-12 h-12 shadow-sm relative">
-            <Image className="object-cover h-full" src={profile} />
-          </div>
-          <div className="description ml-2">
-            <div className="name font-medium ">Vipin</div>
-            <div className="user-name text-gray-400 text-sm">@viipiiin</div>
-          </div>
-        </div>
-        <div className="card-body mt-4">
+        <ProfileAvatar
+          name="Vipin"
+          userName={"Vipin"}
+          profile={AVATAR_RANDOM_URL}
+        />
+        <div className="card-body mt-4 text-sm sm:text-base">
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui,
             ratione! Ab nostrum, maiores optio nesciunt iusto tempora.
@@ -31,16 +30,7 @@ const FeedPost = () => {
           </p>
         </div>
         <div className="reaction-stats font-bold text-sm mt-3">1k Likes</div>
-        <div className="reactions flex mt-3 justify-between">
-          <div className="left-reactions flex w-28 justify-start gap-3">
-            <FaRegHeart />
-            <FaRegComment />
-            <FaShare />
-          </div>
-          <div className="right-reactions flex w-28 justify-end gap-3">
-            <FaRegBookmark />
-          </div>
-        </div>
+        <Reactions />
       </div>
     </div>
   );
