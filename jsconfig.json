@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2017",
+    "allowSyntheticDefaultImports": false,
     "module": "commonjs",
     "baseUrl": "./",
     "paths": {
-      "@src/*": ["./src/*"],
+      "@containers/*": ["./src/containers/*"],
       "@components/*": ["./src/components/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@src/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules", "dist", "build", "out", ".next"]

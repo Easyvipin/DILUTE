@@ -1,11 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
-import { increase, decrease } from "../counter";
 
 export default function Home() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
   return (
     <>
       <Head>
@@ -15,9 +11,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="font-bold underline">{count}</div>
-        <button onClick={() => dispatch(increase())}>Increase</button>
-        <button onClick={() => dispatch(decrease())}>Decrease</button>
         <Link href="/check">Home</Link>
       </main>
     </>
