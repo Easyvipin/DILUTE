@@ -17,11 +17,17 @@ const Auth = ({ type, onSignUp, onLogIn, ...propsToFwd }) => {
         .min(8, "Must be atleast of 8 characters")
         .required("Required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (formType !== "LogIn") {
-        onSignUp({ email: values.email, password: values.password });
+        onSignUp({ email: values.email, password: values.password })
+          .unwrap()
+          .then((payload) => console.log(payload))
+          .catch((error) => console.log("rejected", error));
       } else {
-        onLogIn({ email: values.email, password: values.password });
+        onLogIn({ email: values.email, password: values.password })
+          .unwrap()
+          .then((payload) => console.log(payload))
+          .catch((error) => console.log("rejected", error));
       }
     },
   });

@@ -7,7 +7,7 @@ import Navbar from "../Navbar";
 import SideBar from "../SideBar";
 
 const Layout = ({ children }) => {
-  const { data: user, isSuccess } = useGetAuthQuery();
+  const { data: user, isSuccess, isError } = useGetAuthQuery();
 
   const ProtectedLayout = () => (
     <div className="box-border mx-auto overflow-hidden h-screen border-4 border-gray-800 ">
@@ -23,10 +23,10 @@ const Layout = ({ children }) => {
 
   const AuthLayout = () => <AuthContainer />;
 
-  if (user?.user !== null && isSuccess) {
+  if (user !== null && isSuccess) {
     return <ProtectedLayout />;
   }
-  if (user?.user === null && isSuccess) {
+  if (user === null || isError) {
     return <AuthLayout />;
   } else return <div>Loading...</div>;
 };

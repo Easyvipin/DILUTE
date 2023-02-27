@@ -5,10 +5,10 @@ export async function signUp({ email, password }) {
     email,
     password,
   });
-  if (data) {
-    return data;
+  if (error.message) {
+    return { error: error.message };
   } else {
-    return error;
+    return { user: data.user };
   }
 }
 
@@ -17,27 +17,29 @@ export async function logIn({ email, password }) {
     email,
     password,
   });
-  if (data) {
-    return data;
+
+  if (error?.message) {
+    return { error: error.message };
   } else {
-    return error;
+    return { user: data.user };
   }
 }
 
 export async function logOut() {
   const { data, error } = await supabase.auth.signOut();
-  if (data) {
-    return data;
+
+  if (error?.message) {
+    return { error: error.message };
   } else {
-    return error;
+    return { user: data.user };
   }
 }
 
 export async function getUser() {
   const { data, error } = await supabase.auth.getUser();
-  if (data) {
-    return data;
+  if (error?.message) {
+    return { error: error.message };
   } else {
-    return error;
+    return { user: data.user };
   }
 }

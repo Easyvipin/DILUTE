@@ -6,34 +6,51 @@ export const authSlice = supabaseApi.injectEndpoints({
     signUp: builder.mutation({
       queryFn: async (userCreds) => {
         const response = await signUp(userCreds);
-        console.log(response);
-        return { data: response };
+
+        if (response?.user?.identities?.length > 0) {
+          return { data: response };
+        } else {
+          return { error: response.error };
+        }
       },
-      invalidatesTags: ["User"],
     }),
     logIn: builder.mutation({
       queryFn: async (userCreds) => {
         const response = await logIn(userCreds);
-        return { data: response };
+        if (response.user.id) {
+          return { data: response };
+        } else {
+          return { error: response.error };
+        }
       },
-      invalidatesTags: ["User"],
+      invalidatesTags: (result, error) => {
+        return result ? ["User"] : [];
+      },
     }),
     logOut: builder.mutation({
       queryFn: async () => {
         const response = await logOut();
-        return { data: response };
+        if (response) {
+          return { data: response };
+        } else {
+          return { error: response.error };
+        }
       },
       invalidatesTags: ["User"],
     }),
     getAuth: builder.query({
       queryFn: async () => {
         const response = await getUser();
-        console.log(response);
-        return { data: response };
+        if (response.user) {
+          return { data: response.user };
+        } else {
+          return { error: response.error };
+        }
       },
       providesTags: ["User"],
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {
