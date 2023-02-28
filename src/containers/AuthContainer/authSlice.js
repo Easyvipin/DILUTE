@@ -10,7 +10,9 @@ export const authSlice = supabaseApi.injectEndpoints({
         if (response?.user?.identities?.length > 0) {
           return { data: response };
         } else {
-          return { error: response.error };
+          return {
+            error: response.error ? response.error : "User already exists",
+          };
         }
       },
     }),

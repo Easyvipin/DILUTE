@@ -3,7 +3,6 @@ import { useLogInMutation, useSignUpMutation } from "./authSlice";
 
 const AuthContainer = () => {
   const [signUp] = useSignUpMutation();
-
   const [logIn] = useLogInMutation();
 
   return (

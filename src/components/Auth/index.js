@@ -1,10 +1,15 @@
+import ErrorText from "@components/ErrorText";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
 import * as Yup from "yup";
+import UseAnimations from "react-useanimations";
+import infinity from "react-useanimations/lib/infinity";
 
 const Auth = ({ type, onSignUp, onLogIn, ...propsToFwd }) => {
   const [formType, setFormType] = useState(type ? type : "LogIn");
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -18,37 +23,62 @@ const Auth = ({ type, onSignUp, onLogIn, ...propsToFwd }) => {
         .required("Required"),
     }),
     onSubmit: async (values) => {
+      setIsLoading(true);
       if (formType !== "LogIn") {
         onSignUp({ email: values.email, password: values.password })
           .unwrap()
-          .then((payload) => console.log(payload))
-          .catch((error) => console.log("rejected", error));
+          .then((payload) => setIsLoading(false))
+          .catch((error) => {
+            setErrorMessage(error);
+            setIsLoading(false);
+          });
       } else {
         onLogIn({ email: values.email, password: values.password })
           .unwrap()
-          .then((payload) => console.log(payload))
-          .catch((error) => console.log("rejected", error));
+          .then((payload) => setIsLoading(false))
+          .catch((error) => {
+            setErrorMessage(error);
+            setIsLoading(false);
+          });
       }
     },
   });
 
-  const renderLoginFooter = () => {
+  const ToggleFormType = (type) => {
+    setFormType(type);
+    formik.resetForm();
+    setErrorMessage(null);
+  };
+
+  const RenderLoginFooter = () => {
     return (
       <div className="mt-4 flex flex-col justify-center items-center">
-        <Link href="/forgot-password">Forgot Password ?</Link>
+        <Link className="text-blue-600" href="/forgot-password">
+          Forgot Password ?
+        </Link>
         <div>
           Not a User{" "}
-          <button onClick={() => setFormType("signUp")}>Sign Up</button>
+          <button
+            className="italic underline"
+            onClick={() => ToggleFormType("signUp")}
+          >
+            Sign Up
+          </button>
         </div>
       </div>
     );
   };
-  const renderSignUpFooter = () => {
+  const RenderSignUpFooter = () => {
     return (
       <div className="mt-4 flex flex-col justify-center items-center">
         <span>
           Already a User{" "}
-          <button onClick={() => setFormType("LogIn")}>Log In Here</button>
+          <button
+            className="italic underline"
+            onClick={() => ToggleFormType("LogIn")}
+          >
+            Log In Here
+          </button>
         </span>
       </div>
     );
@@ -67,6 +97,7 @@ const Auth = ({ type, onSignUp, onLogIn, ...propsToFwd }) => {
           id="email"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
+          value={formik.values.email}
         />
         {formik.touched.email && formik.errors.email ? (
           <div className="text-orange-600 font-light mt-0 mb-2">
@@ -83,17 +114,23 @@ const Auth = ({ type, onSignUp, onLogIn, ...propsToFwd }) => {
           id="password"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
+          value={formik.values.password}
         />
         {formik.touched.password && formik.errors.password ? (
           <div className="text-orange-600 font-light mt-0 mb-2">
             {formik.errors.password}
           </div>
         ) : null}
-        <button type="submit" className="btn border-2">
+        <button
+          type="submit"
+          className="btn border-2 flex  justify-center gap-2 w-40"
+        >
+          {isLoading && <UseAnimations animation={infinity} size={25} />}
           {formType === "signUp" ? "Sign Up" : "Log in"}
         </button>
       </form>
-      {formType === "signUp" ? renderSignUpFooter() : renderLoginFooter()}
+      <ErrorText message={errorMessage} />
+      {formType === "signUp" ? <RenderSignUpFooter /> : <RenderLoginFooter />}
     </div>
   );
 };
